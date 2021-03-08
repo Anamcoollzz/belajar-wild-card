@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\UjiCoba;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,11 +15,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return 'helo';
-});
+    return route('dashboard');
+})->name('dashboard');
 
 Route::domain('{account}.contoh.aksiberbagi.com')->group(function () {
-    Route::get('hehe', function ($account) {
-        return $account;
+    Route::middleware(UjiCoba::class)->group(function () {
+        Route::get('hehe', function ($account) {
+            return $account;
+        })->name('dashboard');
     });
 });
+
+Route::get('hahahah', function () {
+    return 'hahahah';
+})->name('dashboard');
